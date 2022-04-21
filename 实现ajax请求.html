@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // 创建对象
+        const xhr = new XMLHttpRequest();
+        
+        // 初始化
+        xhr.open("GET","https://api.apiopen.top/getJoke");
+
+        // 绑定状态事件，处理响应结果
+        // readtstate 是xhr对象中的属性，表示状态 总共5个状态↓
+        // 0 表示未初始化
+        // 1 表示open方法调用完毕
+        // 2 表示send
+        // 3 表示服务端返回的部分结果
+        // 4 表示服务端返回的所有结果
+        // onreadystatechange 表示 当readystate改变的时候↓ 改一次触发一次
+        xhr.onreadystatechange = function(){
+            // 判断状态 当readyState为4的时候 表示服务端返回了所有结果
+            if(xhr.readyState === 4 ){
+                // 判断响应状态码 200~299表示成功
+                if(xhr.status >= 200 && xhr.status < 300){ 
+                    console.log(xhr.response);
+                }
+                else{
+                    console.error(xhr.status);
+                }
+            }
+        }
+        // 发送请求
+        xhr.send();
+
+
+    </script>
+</body>
+</html>

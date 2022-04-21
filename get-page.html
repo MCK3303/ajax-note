@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX-GET</title>
+</head>
+<style>
+    #res{
+        width: 200px;
+        height: 100px;
+        border: 1px solid black;
+    }
+</style>
+<body>
+    <!-- 实现效果：不刷新页面 点击按钮 收到并展示来自server的响应 -->
+    <button id="click_send">点击发送请求</button>
+    <div id="res"></div>
+    <script>
+        // 获取button元素
+        const click_send = document.getElementById('click_send');
+        // 获取div元素
+        const res = document.getElementById('res');
+        // 点击获取响应
+        click_send.onclick = ()=>{
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET','http://localhost:8000/server');
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                // 判断readyState状态
+                if(xhr.readyState === 4){
+                    // 判断响应状态码 200~299表示请求成功 得到响应response
+                    if(xhr.status >= 200 && xhr.status <300){
+                        console.log(xhr.status);//状态码
+                        console.log(xhr.statusText);//状态字符串 OK
+                        console.log(xhr.getAllResponseHeaders);//获取响应头
+                        console.log(xhr.response);//响应体
+                    //把响应体展示在div元素中↓  实现了不刷新页面 从服务器得到响应结果
+                        res.innerHTML = xhr.response;
+                    }
+                }
+            }
+       }
+    </script>
+
+
+</body>
+</html>
