@@ -14,7 +14,7 @@
     }
 </style>
 <body>
-    <!-- 需求：把鼠标移入div时 发送post请求 并把请求得到的结果展示在div中 -->
+    <!-- 需求：把鼠标移入div时 发送请求 并把请求得到的结果展示在div中 -->
     <div id="box">
 
     </div>
@@ -24,12 +24,17 @@
         // 绑定事件
         box.addEventListener('mouseover',function(){
             const xhr = new XMLHttpRequest();
-            xhr.open('post','http://localhost:8000/server');
-            xhr.send('a=30&b=200');
+            // 自动转换数据↓ 设置响应体数据的类型
+            // xhr.responseType = 'json';
+            xhr.open('GET','http://localhost:8000/json-server');
+            xhr.send();
             xhr.onreadystatechange =()=>{
                 if(xhr.readyState === 4){
                     if(xhr.status >=200 && xhr.status <300){
-                        box.innerHTML = xhr.response;
+                        // 接收到来自8000/json-server的数据response
+                        // 把数据手动转换为对象↓
+                        let data = JSON.parse(xhr.response);
+                        box.innerHTML = data.name;
                     }
                 }
             }

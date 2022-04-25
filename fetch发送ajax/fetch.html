@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin="anonymous" src="https://cdn.bootcdn.net/ajax/libs/axios/0.26.1/axios.js"></script>
+</head>
+<style>
+    .get{
+        width: 85px;
+        height: 30px;
+        background-color: #E36303;
+        color: #FFF;
+        border-radius: 8%;
+    }
+    .post{
+        width: 85px;
+        height: 30px;
+        background-color: #03E6E3;
+        color: #FFF;
+        border-radius: 8%;
+    }
+    .ajax{
+        width: 85px;
+        height: 30px;
+        background-color: blue;
+        color: #FFF;
+        border-radius: 8%;
+    }
+</style>
+<body>
+    <!-- fetch是一个底层的api 是浏览器原生支持的 -->
+    <h3>fetch发送ajax请求↓</h3>
+    <hr>
+
+    <button class="post">fetch发送</button>
+
+    <script>
+        const btns = document.querySelectorAll('button');
+        btns[0].onclick = function(){
+            fetch('http://localhost:8000/fetch-server',{
+                //请求方法
+                method:'post',
+                //请求头
+                headers:{
+                    qingqiutou:'111'
+                },
+                //请求体
+                body:'username=fetch&&password=fetch111'
+            })
+            //调用then处理接收的数据
+            .then(response =>{
+                //返回的是一个promise对象 转为json格式
+                return response.json()
+            })
+            //对上一个返回的promise json数据处理
+            .then(response =>{
+                console.log(response);
+            });
+        }
+        
+    
+    </script>
+</body>
+</html>

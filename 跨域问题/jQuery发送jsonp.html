@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<style>
+#box{
+    width: 260px;
+    height: 130px;
+    border:1px solid black;
+}
+
+</style>
+<body>
+    <button id="btn">
+        点击发送请求
+    </button>
+    <div id="box">
+
+    </div>
+
+    <script>
+        //点击按钮 jQuery发送请求
+        $('#btn').click(function(){
+            //URL后要跟callback=?参数，function(data)对接收数据进行处理
+            $.getJSON('http://127.0.0.1:9000/jq-jsonp-server?callback=?',function(data){
+                $('#box').html(`
+                名称:${data.name}<br>
+                内容:${data.content}
+                `)
+            })
+        })
+    </script>
+</body>
+</html>

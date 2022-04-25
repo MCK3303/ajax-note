@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<style>
+    .get{
+        width: 85px;
+        height: 30px;
+        background-color: #E36303;
+        color: #FFF;
+        border-radius: 8%;
+    }
+    .post{
+        width: 85px;
+        height: 30px;
+        background-color: #03E6E3;
+        color: #FFF;
+        border-radius: 8%;
+    }
+    .ajax{
+        width: 85px;
+        height: 30px;
+        background-color: blue;
+        color: #FFF;
+        border-radius: 8%;
+    }
+</style>
+<body>
+    <h3>jQuery发送ajax请求↓</h3>
+    <hr>
+    <button class="get">get</button>
+    <button class="post">post</button>
+    <button class="ajax">通用型ajax</button>
+    <script>
+        $('button').eq(0).click(function(){
+            //jQuery发送get请求
+            //URL,{要发送的参数},回调函数(响应体),响应体的类型
+            $.get('http://127.0.0.1:8000/jQuery-server',{},function(data){
+                console.log(data);
+            },'json')
+            //加了'json' 得到的就是数据内容 不加'json' 得到的是字符串
+        })
+        $('button').eq(1).click(function(){
+            //jQuery发送post请求
+            $.post('http://127.0.0.1:8000/jQuery-server',{},function(data){
+                console.log(data);
+            })
+        })
+        //通用发送 ajax
+        $('button').eq(2).click(function(){
+            $.ajax({
+                //url
+                url:'http://127.0.0.1:8000/jQuery-server',
+                //参数
+                data:{},
+                //请求类型
+                type:'GET',
+                //响应体结果
+                dataType:'json',
+                //成功的回调
+                success:function(data){
+                    console.log(data);
+                },
+                //超时时间设置
+                timeout:2000,
+                //失败的回调
+                error:function(){
+                    alert('可能出了一些小问题~刷新一下吧');
+                    console.log('可能出了一些小问题~刷新一下吧');
+                },
+                //头信息
+                headers:{
+                    
+                }
+            })
+        })
+
+    </script>
+</body>
+</html>

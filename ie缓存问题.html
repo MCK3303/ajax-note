@@ -14,7 +14,6 @@
     }
 </style>
 <body>
-    <!-- 需求：把鼠标移入div时 发送post请求 并把请求得到的结果展示在div中 -->
     <div id="box">
 
     </div>
@@ -24,8 +23,15 @@
         // 绑定事件
         box.addEventListener('mouseover',function(){
             const xhr = new XMLHttpRequest();
-            xhr.open('post','http://localhost:8000/server');
-            xhr.send('a=30&b=200');
+            // 网络超时秒数设置↓
+            xhr.timeout = 2000;
+            // 网络超时的时候会触发↓
+            xhr.ontimeout = function(){
+                alert('网络超时');
+            }
+            // 添加时间戳参数↓
+            xhr.open('get','http://localhost:8000/ie?t='+Date.now());
+            xhr.send();
             xhr.onreadystatechange =()=>{
                 if(xhr.readyState === 4){
                     if(xhr.status >=200 && xhr.status <300){

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+</head>
+<style>
+    .get{
+        width: 85px;
+        height: 30px;
+        background-color: #E36303;
+        color: #FFF;
+        border-radius: 8%;
+    }
+    .post{
+        width: 85px;
+        height: 30px;
+        background-color: #03E6E3;
+        color: #FFF;
+        border-radius: 8%;
+    }
+    .ajax{
+        width: 85px;
+        height: 30px;
+        background-color: blue;
+        color: #FFF;
+        border-radius: 8%;
+    }
+</style>
+<body>
+    <h3>测试主页</h3>
+    <hr>
+    <button class="get">get</button>
+    <button class="post">post</button>
+    <button class="ajax">通用型ajax</button>
+    <script>
+        // const btns = document.querySelectorAll('button');
+        const btns = document.getElementsByTagName('button');
+        // console.log(btns[0]);
+        btns[0].onclick = function(){
+            const xhr = new XMLHttpRequest();
+            //页面在9000端口呈现
+            //因为这里满足同源策略，所以URL可以简写
+            xhr.open('get','/data');
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status <=299){
+                        console.log(xhr.response);
+                    }
+                }
+            }
+
+        }
+
+    </script>
+</body>
+</html>
